@@ -1,0 +1,2283 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "API Bumi Baik",
+        "version": "1.0"
+    },
+    "servers": [{ "url": "https://api.server.test/api" }],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "responses": {
+            "badRequest": {
+                "description": "Bad Request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "example": {
+                            "message": "Bad Request",
+                            "error": "transaction failed"
+                        }
+                    }
+                }
+            },
+            "validationError": {
+                "description": "Bad Request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "validation error"
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "properties": {
+                                        "key": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The {label} field is required."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "user unatuhtorized"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "internalServerError": {
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "description": "Login",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user": {
+                                        "type": "string",
+                                        "example": "08123456789"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "access_token": {
+                                                    "type": "string"
+                                                },
+                                                "refresh_token": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        },
+                                                        "telp": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Login success",
+                                    "data": {
+                                        "access_token": "5504f54a8bf1",
+                                        "refresh_token": "5504f54a8bf1",
+                                        "user": {
+                                            "id": 1,
+                                            "name": "John Doe",
+                                            "email": "john@gmail.com",
+                                            "telp": "628123456789"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "description": "Register",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "08123456789"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "telp": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "password_confirm": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Register Success"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "access_token": {
+                                                    "type": "string"
+                                                },
+                                                "refresh_token": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        },
+                                                        "telp": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Register success",
+                                    "data": {
+                                        "access_token": "5504f54a8bf1",
+                                        "refresh_token": "5504f54a8bf1",
+                                        "user": {
+                                            "id": 1,
+                                            "name": "John Doe",
+                                            "email": "john@gmail.com",
+                                            "telp": "628123456789"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/carbon": {
+            "get": {
+                "description": "Carbon Detail",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {}
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "carbon": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "user_id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "emision": {
+                                                            "type": "string",
+                                                            "example": "1.2"
+                                                        },
+                                                        "offset": {
+                                                            "type": "string",
+                                                            "example": "1.2"
+                                                        },
+                                                        "last_calculate": {
+                                                            "type": "string",
+                                                            "example": "2020-01-01"
+                                                        }
+                                                    }
+                                                },
+                                                "trees": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "code": {
+                                                                "type": "string",
+                                                                "example": "12312"
+                                                            },
+                                                            "latitude": {
+                                                                "type": "string",
+                                                                "example": "12312"
+                                                            },
+                                                            "longitude": {
+                                                                "type": "string",
+                                                                "example": "12312"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/carbon/calculator": {
+            "post": {
+                "description": "Send Calculator",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "fuel": {
+                                        "type": "integer",
+                                        "example": 1000000
+                                    },
+                                    "fuel_type": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "electricity": {
+                                        "type": "integer",
+                                        "example": 200000
+                                    },
+                                    "electricity_type": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "gas": {
+                                        "type": "integer",
+                                        "example": 150000
+                                    },
+                                    "gas_type": {
+                                        "type": "integer",
+                                        "example": 4
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully inserted"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "result": {
+                                                    "type": "string",
+                                                    "example": "18000.10"
+                                                },
+                                                "unit": {
+                                                    "type": "string",
+                                                    "example": "kg"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/validationError"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/carbon/calculator/type": {
+            "get": {
+                "description": "Get Type Calculator",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "fuel": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Pertalite"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "electricity": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Subsidi"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "gas": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Subsidi"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/validationError"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/products/adopt": {
+            "get": {
+                "description": "Adopt Product",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Tipe Pohon"
+                                                    },
+                                                    "location": {
+                                                        "type": "string",
+                                                        "example": "Lokasi"
+                                                    },
+                                                    "images": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string",
+                                                            "example": "https://www.google.com"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/products/adopt/{id}": {
+            "get": {
+                "description": "Adopt Product",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Tipe Pohon"
+                                                },
+                                                "detail": {
+                                                    "type": "string",
+                                                    "example": "Detail"
+                                                },
+                                                "location": {
+                                                    "type": "string",
+                                                    "example": "Lokasi"
+                                                },
+                                                "quota": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "images": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "https://www.google.com"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/products/planting": {
+            "get": {
+                "description": "Planting Product",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Tipe Pohon"
+                                                    },
+                                                    "date_planting": {
+                                                        "type": "string",
+                                                        "example": "2021-01-01"
+                                                    },
+                                                    "images": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string",
+                                                            "example": "https://www.google.com"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/products/planting/{id}": {
+            "get": {
+                "description": "Adopt Product",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Tipe Pohon"
+                                                },
+                                                "detail": {
+                                                    "type": "string",
+                                                    "example": "Detail"
+                                                },
+                                                "tree": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Tipe Pohon"
+                                                        },
+                                                        "detail": {
+                                                            "type": "string",
+                                                            "example": "Detail"
+                                                        }
+                                                    }
+                                                },
+                                                "location": {
+                                                    "type": "string",
+                                                    "example": "Lokasi"
+                                                },
+                                                "quota": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "images": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "https://www.google.com"
+                                                    }
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": 100000
+                                                },
+                                                "date_planting": {
+                                                    "type": "string",
+                                                    "example": "2021-01-01"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "description": "Get User",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Nama"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": ""
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": ""
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "example": "2021-01-01"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "Laki-laki"
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "Alamat"
+                                                },
+                                                "registered_at": {
+                                                    "type": "string",
+                                                    "example": "2021-01-01"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            },
+            "put": {
+                "description": "Update User",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nama"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "example": "2021-01-01"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "M"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully updated"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Nama"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": ""
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": ""
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "example": "2021-01-01"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "M"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/validationError"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/users/edit_password": {
+            "put": {
+                "description": "Edit Password",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_corim": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password successfully updated"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/validationError"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/news": {
+            "get": {
+                "description": "Get News",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "is_highlight",
+                        "in": "query",
+                        "description": "Is Highlight",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Judul"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "https://image.com"
+                                                    },
+                                                    "views": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2021-01-01"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/news/{id}": {
+            "get": {
+                "description": "Get News Detail",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "News ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Judul"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "https://image.com"
+                                                },
+                                                "views": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2021-01-01"
+                                                },
+                                                "content": {
+                                                    "type": "string",
+                                                    "example": "Content"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/trees": {
+            "get": {
+                "description": "Get Trees",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "A1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Nama"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/trees/{id}": {
+            "get": {
+                "description": "Get Tree Detail",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tree ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "code": {
+                                                    "type": "string",
+                                                    "example": "A1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Nama"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Deskripsi"
+                                                },
+                                                "location_name": {
+                                                    "type": "string",
+                                                    "example": "Lokasi"
+                                                },
+                                                "location": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "latitude": {
+                                                            "type": "string",
+                                                            "example": "-6.123456"
+                                                        },
+                                                        "longitude": {
+                                                            "type": "string",
+                                                            "example": "106.123456"
+                                                        }
+                                                    }
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "https://image.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2021-01-01"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/transactions/adopt": {
+            "post": {
+                "description": "Adopt Tree",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "properties": {
+                                            "product_id": {
+                                                "type": "integer"
+                                            },
+                                            "total": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    },
+                                    "payment_method": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "detail": {
+                                    "product_id": 1,
+                                    "total": 15000
+                                },
+                                "payment_method": "va_bca"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "transaction": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "total": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        },
+                                                        "phone": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "payment": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "method_name": {
+                                                            "type": "string"
+                                                        },
+                                                        "method_code": {
+                                                            "type": "string"
+                                                        },
+                                                        "account_number": {
+                                                            "type": "string"
+                                                        },
+                                                        "actions": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "name": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "method": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "url": {
+                                                                        "type": "string"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "E Wallet": {
+                                        "value": {
+                                            "message": "Transaction successfully created",
+                                            "data": {
+                                                "transaction": {
+                                                    "id": "123456789",
+                                                    "tree_id": 1,
+                                                    "qty": 2,
+                                                    "total": 100000
+                                                },
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "Nama",
+                                                    "email": "example@mail.com",
+                                                    "phone": "628123456789"
+                                                },
+                                                "payment": {
+                                                    "method_name": "GOPAY",
+                                                    "method_code": "gopay",
+                                                    "account_number": "123456789",
+                                                    "logo": "https://midtrans.com/assets/img/payment/gopay.png",
+                                                    "actions": [
+                                                        [
+                                                            {
+                                                                "name": "generate-qr-code",
+                                                                "method": "GET",
+                                                                "url": "https://api.sandbox.midtrans.com/v2/gopay/53987c10-d5c2-4a1a-bb0a-6417d9367217/qr-code"
+                                                            },
+                                                            {
+                                                                "name": "deeplink-redirect",
+                                                                "method": "GET",
+                                                                "url": "https://simulator.sandbox.midtrans.com/gopay/partner/app/payment-pin?id=9084bc1b-640c-4625-85cb-ae921d9bbd6e"
+                                                            },
+                                                            {
+                                                                "name": "get-status",
+                                                                "method": "GET",
+                                                                "url": "https://api.sandbox.midtrans.com/v2/53987c10-d5c2-4a1a-bb0a-6417d9367217/status"
+                                                            },
+                                                            {
+                                                                "name": "cancel",
+                                                                "method": "POST",
+                                                                "url": "https://api.sandbox.midtrans.com/v2/53987c10-d5c2-4a1a-bb0a-6417d9367217/cancel"
+                                                            }
+                                                        ]
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "Virtual Account": {
+                                        "value": {
+                                            "message": "Transaction successfully created",
+                                            "data": {
+                                                "transaction": {
+                                                    "id": "123456789",
+                                                    "tree_id": 1,
+                                                    "qty": 2,
+                                                    "total": 100000
+                                                },
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "Nama",
+                                                    "email": "example@mail.com",
+                                                    "phone": "628123456789"
+                                                },
+                                                "payment": {
+                                                    "method_name": "GOPAY",
+                                                    "method_code": "gopay",
+                                                    "account_number": "123456789",
+                                                    "logo": "https://midtrans.com/assets/img/payment/gopay.png"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/transactions/planting": {
+            "post": {
+                "description": "Adopt Tree",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "properties": {
+                                            "product_id": {
+                                                "type": "integer"
+                                            },
+                                            "tree_id": {
+                                                "type": "integer"
+                                            },
+                                            "qty": {
+                                                "type": "integer"
+                                            },
+                                            "total": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    },
+                                    "payment_method": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "detail": {
+                                    "product_id": 1,
+                                    "tree_id": 1,
+                                    "qty": 2,
+                                    "total": 15000
+                                },
+                                "payment_method": "va_bca"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "transaction": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "tree_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "qty": {
+                                                            "type": "integer"
+                                                        },
+                                                        "total": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        },
+                                                        "phone": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "payment": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "method_name": {
+                                                            "type": "string"
+                                                        },
+                                                        "method_code": {
+                                                            "type": "string"
+                                                        },
+                                                        "account_number": {
+                                                            "type": "string"
+                                                        },
+                                                        "logo": {
+                                                            "type": "string"
+                                                        },
+                                                        "actions": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "name": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "method": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "url": {
+                                                                        "type": "string"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "E Wallet": {
+                                        "value": {
+                                            "message": "Transaction successfully created",
+                                            "data": {
+                                                "transaction": {
+                                                    "id": "123456789",
+                                                    "tree_id": 1,
+                                                    "qty": 2,
+                                                    "total": 100000
+                                                },
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "Nama",
+                                                    "email": "example@mail.com",
+                                                    "phone": "628123456789"
+                                                },
+                                                "payment": {
+                                                    "method_name": "GOPAY",
+                                                    "method_code": "gopay",
+                                                    "account_number": "123456789",
+                                                    "logo": "https://midtrans.com/assets/img/payment/gopay.png",
+                                                    "actions": [
+                                                        [
+                                                            {
+                                                                "name": "generate-qr-code",
+                                                                "method": "GET",
+                                                                "url": "https://api.sandbox.midtrans.com/v2/gopay/53987c10-d5c2-4a1a-bb0a-6417d9367217/qr-code"
+                                                            },
+                                                            {
+                                                                "name": "deeplink-redirect",
+                                                                "method": "GET",
+                                                                "url": "https://simulator.sandbox.midtrans.com/gopay/partner/app/payment-pin?id=9084bc1b-640c-4625-85cb-ae921d9bbd6e"
+                                                            },
+                                                            {
+                                                                "name": "get-status",
+                                                                "method": "GET",
+                                                                "url": "https://api.sandbox.midtrans.com/v2/53987c10-d5c2-4a1a-bb0a-6417d9367217/status"
+                                                            },
+                                                            {
+                                                                "name": "cancel",
+                                                                "method": "POST",
+                                                                "url": "https://api.sandbox.midtrans.com/v2/53987c10-d5c2-4a1a-bb0a-6417d9367217/cancel"
+                                                            }
+                                                        ]
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "Virtual Account": {
+                                        "value": {
+                                            "message": "Transaction successfully created",
+                                            "data": {
+                                                "transaction": {
+                                                    "id": "123456789",
+                                                    "tree_id": 1,
+                                                    "qty": 2,
+                                                    "total": 100000
+                                                },
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "Nama",
+                                                    "email": "example@mail.com",
+                                                    "phone": "628123456789"
+                                                },
+                                                "payment": {
+                                                    "method_name": "GOPAY",
+                                                    "method_code": "gopay",
+                                                    "account_number": "123456789",
+                                                    "logo": "https://midtrans.com/assets/img/payment/gopay.png"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/transactions": {
+            "get": {
+                "description": "Get Transactions",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    },
+                                                    "code": {
+                                                        "type": "string"
+                                                    },
+                                                    "detail": {
+                                                        "type": "string"
+                                                    },
+                                                    "date": {
+                                                        "type": "string"
+                                                    },
+                                                    "total": {
+                                                        "type": "integer"
+                                                    },
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Belum Bayar": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": [
+                                                {
+                                                    "id": "eecd37ff-5d1e-4446-853d-5504f54a8bf1",
+                                                    "type": "adopt",
+                                                    "code": "A1",
+                                                    "detail": "Jenis Pohon",
+                                                    "date": "2021-01-01 00:00:00",
+                                                    "total": 100000,
+                                                    "status": "payment_pending"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "Verifikasi": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": [
+                                                {
+                                                    "id": "eecd37ff-5d1e-4446-853d-5504f54a8bf1",
+                                                    "type": "planting",
+                                                    "code": "A1",
+                                                    "detail": "Hutan Cempaka",
+                                                    "date": "2021-01-01 00:00:00",
+                                                    "total": 100000,
+                                                    "status": "payment_verified"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "Selesai": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": [
+                                                {
+                                                    "id": 1,
+                                                    "type": "adopt",
+                                                    "code": "A1",
+                                                    "detail": "Jenis Pohon",
+                                                    "date": "2021-01-01 00:00:00",
+                                                    "total": 100000,
+                                                    "status": "completed"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "Batal": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": [
+                                                {
+                                                    "id": 1,
+                                                    "type": "adopt",
+                                                    "code": "A1",
+                                                    "detail": "Jenis Pohon",
+                                                    "date": "2021-01-01 00:00:00",
+                                                    "total": 100000,
+                                                    "status": "canceled"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
+        },
+        "/transactions/{id}": {
+            "get": {
+                "description": "Get Transaction Detail",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Transaction ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "date": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "string"
+                                                },
+                                                "planting_date": {
+                                                    "type": "string"
+                                                },
+                                                "trees": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "code": {
+                                                                "type": "integer"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                },
+                                                "payment_method": {
+                                                    "type": "string"
+                                                },
+                                                "status": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Adopsi Pohon": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": {
+                                                "id": "eecd37ff-5d1e-4446-853d-5504f54a8bf1",
+                                                "date": "2021-01-01 00:00:00",
+                                                "type": "Adopsi Pohon",
+                                                "code": "A1",
+                                                "trees": [
+                                                    {
+                                                        "id": 1,
+                                                        "name": "Jenis Pohon",
+                                                        "code": "A1"
+                                                    }
+                                                ],
+                                                "total": 100000,
+                                                "payment_method": "Transfer Bank",
+                                                "status": "payment_pending"
+                                            }
+                                        }
+                                    },
+                                    "Penanaman Pohon": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": {
+                                                "id": "eecd37ff-5d1e-4446-853d-5504f54a8bf1",
+                                                "date": "2021-01-01 00:00:00",
+                                                "type": "Penanaman Pohon",
+                                                "code": "A1",
+                                                "planting_date": "2021-01-01 00:00:00",
+                                                "trees": [
+                                                    {
+                                                        "id": 1,
+                                                        "name": "Jenis Pohon",
+                                                        "code": "A1"
+                                                    }
+                                                ],
+                                                "total": 100000,
+                                                "payment_method": "Virtual Account BCA",
+                                                "status": "payment_pending"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/payment_methods": {
+            "get": {
+                "description": "Get Payment Methods",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "ewallet": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "code": {
+                                                                "type": "string"
+                                                            },
+                                                            "logo": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "va": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "code": {
+                                                                "type": "string"
+                                                            },
+                                                            "logo": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Data successfully retrieved",
+                                    "data": [
+                                        {
+                                            "ewallet": [
+                                                {
+                                                    "name": "OVO",
+                                                    "code": "ovo",
+                                                    "logo": "https://api.pohon.id/storage/payment_methods/ovo.png"
+                                                },
+                                                {
+                                                    "name": "DANA",
+                                                    "code": "dana",
+                                                    "logo": "https://api.pohon.id/storage/payment_methods/dana.png"
+                                                },
+                                                {
+                                                    "name": "Gopay",
+                                                    "code": "gopay",
+                                                    "logo": "https://api.pohon.id/storage/payment_methods/gopay.png"
+                                                }
+                                            ],
+                                            "va": [
+                                                {
+                                                    "name": "Virtual Account BCA",
+                                                    "code": "bca",
+                                                    "logo": "https://api.pohon.id/storage/payment_methods/bca.png"
+                                                },
+                                                {
+                                                    "name": "Virtual Account BNI",
+                                                    "code": "bni",
+                                                    "logo": "https://api.pohon.id/storage/payment_methods/bni.png"
+                                                },
+                                                {
+                                                    "name": "Virtual Account BRI",
+                                                    "code": "bri",
+                                                    "logo": "https://api.pohon.id/storage/payment_methods/bri.png"
+                                                },
+                                                {
+                                                    "name": "Virtual Account Mandiri",
+                                                    "code": "mandiri",
+                                                    "logo": "https://api.pohon.id/storage/payment_methods/mandiri.png"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
