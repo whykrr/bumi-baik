@@ -2278,6 +2278,331 @@
                     }
                 }
             }
+        },
+        "/transactions/redeem_code": {
+            "get": {
+                "description": "Get Reedem Code",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "Code Voucher",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully retrieved"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "integer"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                },
+                                                "trees": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "code": {
+                                                                "type": "string"
+                                                            },
+                                                            "location_name": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "product": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "location_name": {
+                                                            "type": "string"
+                                                        },
+                                                        "tree": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "code": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "planting_date": {
+                                                            "type": "string"
+                                                        },
+                                                        "qty": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Adopt": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": {
+                                                "code": "BETA50AT",
+                                                "value": 50000,
+                                                "type": "adopt",
+                                                "trees": [
+                                                    {
+                                                        "id": 1,
+                                                        "code": "ADOPTH1",
+                                                        "name": "Pohon Bambu",
+                                                        "location_name": "Kebun Binatang Ragunan"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "Planting": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": {
+                                                "code": "BETA50TP",
+                                                "value": 50000,
+                                                "type": "planting",
+                                                "product": {
+                                                    "id": 1,
+                                                    "name": "Penanaman Pohon di Hutan Cempaka",
+                                                    "location_name": "Hutan Cempaka",
+                                                    "tree": {
+                                                        "name": "Pohon Bambu",
+                                                        "description": "Deskripsi"
+                                                    },
+                                                    "planting_date": "2020-12-01",
+                                                    "qty": 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            },
+            "post": {
+                "description": "Using Vouchder",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "product_id": {
+                                        "type": "integer"
+                                    },
+                                    "qty": {
+                                        "type": "integer"
+                                    },
+                                    "total": {
+                                        "type": "integer"
+                                    },
+                                    "voucher_code": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Adopt": {
+                                    "value": {
+                                        "type": "adopt",
+                                        "product_id": 1,
+                                        "total": 50000,
+                                        "voucher_code": "BETA50AT"
+                                    }
+                                },
+                                "Planting": {
+                                    "value": {
+                                        "type": "planting",
+                                        "product_id": 1,
+                                        "qty": 1,
+                                        "total": 50000,
+                                        "voucher_code": "BETA50TP"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data successfully created"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "date": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "string"
+                                                },
+                                                "planting_date": {
+                                                    "type": "string"
+                                                },
+                                                "trees": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "code": {
+                                                                "type": "integer"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                },
+                                                "payment_method": {
+                                                    "type": "string"
+                                                },
+                                                "status": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Adopsi Pohon": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": {
+                                                "id": "eecd37ff-5d1e-4446-853d-5504f54a8bf1",
+                                                "date": "2021-01-01 00:00:00",
+                                                "type": "Adopsi Pohon",
+                                                "code": "A1",
+                                                "trees": [
+                                                    {
+                                                        "id": 1,
+                                                        "name": "Jenis Pohon",
+                                                        "code": "A1"
+                                                    }
+                                                ],
+                                                "total": 100000,
+                                                "payment_method": "Penukaran Voucher",
+                                                "status": "completed"
+                                            }
+                                        }
+                                    },
+                                    "Penanaman Pohon": {
+                                        "value": {
+                                            "message": "Data successfully retrieved",
+                                            "data": {
+                                                "id": "eecd37ff-5d1e-4446-853d-5504f54a8bf1",
+                                                "date": "2021-01-01 00:00:00",
+                                                "type": "Penanaman Pohon",
+                                                "code": "A1",
+                                                "planting_date": "2021-01-01 00:00:00",
+                                                "trees": [
+                                                    {
+                                                        "id": 1,
+                                                        "name": "Jenis Pohon",
+                                                        "code": "A1"
+                                                    }
+                                                ],
+                                                "total": 100000,
+                                                "payment_method": "Penukaran Voucher",
+                                                "status": "completed"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/internalServerError"
+                    }
+                }
+            }
         }
     }
 }
