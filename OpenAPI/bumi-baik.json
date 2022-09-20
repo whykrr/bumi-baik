@@ -1,0 +1,1659 @@
+{
+  "uuid": "dde1a4ca-5fed-40d3-aa21-b82266fddb42",
+  "lastMigration": 22,
+  "name": "API Bumi Baik",
+  "endpointPrefix": "api",
+  "latency": 0,
+  "port": 3002,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "1a11a9a0-7607-46fb-82cf-e486db892da4",
+      "documentation": "Login",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "9d52a3c8-2e44-4e69-bf76-333f266ef418",
+          "body": "{\n  \"message\": \"\",\n  \"data\": {\n    \"access_token\": \"\",\n    \"refresh_token\": \"\",\n    \"user\": {\n      \"id\": 1,\n      \"name\": \"\",\n      \"email\": \"\",\n      \"telp\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "3767d422-1b76-460f-87cd-ca5bd49af39c",
+      "documentation": "Register",
+      "method": "post",
+      "endpoint": "auth/register",
+      "responses": [
+        {
+          "uuid": "eada6c82-498c-479a-b069-55fb46b7c766",
+          "body": "{\n  \"message\": \"Register Success\",\n  \"data\": {\n    \"access_token\": \"\",\n    \"refresh_token\": \"\",\n    \"user\": {\n      \"id\": 1,\n      \"name\": \"\",\n      \"email\": \"\",\n      \"telp\": \"\"\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "8b366283-067c-4646-a288-8928a86b649f",
+      "documentation": "Carbon Detail",
+      "method": "get",
+      "endpoint": "carbon",
+      "responses": [
+        {
+          "uuid": "819244d9-8fea-4b22-ac9d-12e59243a399",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"carbon\": {\n      \"user_id\": 1,\n      \"emision\": \"1.2\",\n      \"offset\": \"1.2\",\n      \"last_calculate\": \"2020-01-01\"\n    },\n    \"trees\": [\n      {\n        \"code\": \"12312\",\n        \"latitude\": \"12312\",\n        \"longitude\": \"12312\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "c0bb0146-b4b3-4439-ba26-b9f8c473fd62",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "Bearer",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "fb151399-c3ae-4a0c-b6a1-b65841dc127b",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "d1f4ef68-1292-4928-9352-c3c4e779715e",
+      "documentation": "Send Calculator",
+      "method": "post",
+      "endpoint": "carbon/calculator",
+      "responses": [
+        {
+          "uuid": "63cc0364-b1b7-4b93-9757-22416f2ce5ce",
+          "body": "{\n  \"message\": \"Data successfully inserted\",\n  \"data\": {\n    \"result\": \"18000.10\",\n    \"unit\": \"kg\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "6acb8c92-2bb1-4c23-83f9-af66f5a59b4f",
+          "body": "{\n  \"message\": \"validation error\",\n  \"errors\": {\n    \"key\": [\n      \"The {label} field is required.\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "959f01da-5fa8-4dc6-87f2-4abe6a1c4ecd",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "a1e45548-154a-4d6d-96d4-fdbe9d5311bb",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "fa8f6b4a-5820-40db-9952-f5d4e31a73df",
+      "documentation": "Get Type Calculator",
+      "method": "get",
+      "endpoint": "carbon/calculator/type",
+      "responses": [
+        {
+          "uuid": "55845eea-7006-47ce-ac16-964c832b02a8",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"fuel\": [\n      {\n        \"id\": 1,\n        \"name\": \"Pertalite\"\n      }\n    ],\n    \"electricity\": [\n      {\n        \"id\": 1,\n        \"name\": \"Subsidi\"\n      }\n    ],\n    \"gas\": [\n      {\n        \"id\": 1,\n        \"name\": \"Subsidi\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "fddc87c0-1b96-44a9-b2f2-eb57878cfa07",
+          "body": "{\n  \"message\": \"validation error\",\n  \"errors\": {\n    \"key\": [\n      \"The {label} field is required.\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "933c3e20-e8a3-47a3-8aa2-01fe3d689d1f",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "cbf6def8-4cb4-4a11-ad08-152d0f199e91",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "7a77593d-c55e-4024-8215-36a6dd979962",
+      "documentation": "Adopt Product",
+      "method": "get",
+      "endpoint": "products/adopt",
+      "responses": [
+        {
+          "uuid": "53c50340-8d3e-4e31-a493-34e05d1b4dcf",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Tipe Pohon\",\n      \"location\": \"Lokasi\",\n      \"images\": [\n        \"https://www.google.com\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "7fe9c804-bec1-4274-853b-1b8762a42f9c",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "597e0ba3-af99-4d04-9d1f-668b8103f1aa",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "dd320349-07d1-454c-85af-84a1070ceffb",
+      "documentation": "Adopt Product",
+      "method": "get",
+      "endpoint": "products/adopt/:id",
+      "responses": [
+        {
+          "uuid": "eb0fcc63-638e-4e6c-8036-1e982a6d7ee3",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Tipe Pohon\",\n    \"detail\": \"Detail\",\n    \"location\": \"Lokasi\",\n    \"quota\": 100,\n    \"images\": [\n      \"https://www.google.com\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "4659560d-eaee-44de-8281-6bc6676c26b1",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "e2e5d058-2008-452f-9e2f-6917e0f188c0",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "5b954202-50d1-4772-a4b7-10d4254ada86",
+      "documentation": "Planting Product",
+      "method": "get",
+      "endpoint": "products/planting",
+      "responses": [
+        {
+          "uuid": "1879ff89-030a-4d35-8e81-b95b665d561b",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Tipe Pohon\",\n      \"date_planting\": \"2021-01-01\",\n      \"images\": [\n        \"https://www.google.com\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "3a3d6b92-d394-4ea2-b9d7-7692e05c82a0",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "84e4e817-86f9-48e5-b7e6-810bca2d04c8",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "f1ef80a5-4c93-4f48-97a4-e2b531ec1930",
+      "documentation": "Adopt Product",
+      "method": "get",
+      "endpoint": "products/planting/:id",
+      "responses": [
+        {
+          "uuid": "07aa7ddc-35d2-478b-aa78-3e455a7f8499",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Tipe Pohon\",\n    \"detail\": \"Detail\",\n    \"tree\": {\n      \"name\": \"Tipe Pohon\",\n      \"detail\": \"Detail\"\n    },\n    \"location\": \"Lokasi\",\n    \"quota\": 100,\n    \"images\": [\n      \"https://www.google.com\"\n    ],\n    \"price\": 100000,\n    \"date_planting\": \"2021-01-01\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "11c3c332-a5ac-4a98-8458-19d5f210034b",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "219b1a15-b49d-456c-85f0-a60fbc89ada7",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "d49fdd1a-a845-43c7-b791-fbac567a58b7",
+      "documentation": "Get User",
+      "method": "get",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "1af39efd-4ab6-4df0-8ff1-442f160b6fb1",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Nama\",\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"birth_date\": \"2021-01-01\",\n    \"gender\": \"Laki-laki\",\n    \"address\": \"Alamat\",\n    \"registered_at\": \"2021-01-01\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "cc9a1aa4-80c7-4e17-93ff-b90795166ea8",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "26671e9e-adf7-418d-a041-7472c6c42b70",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "3a93f396-2365-4aff-8f37-9927afee75e1",
+      "documentation": "Update User",
+      "method": "put",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "17ad4fc0-cbc2-4cd9-ae0b-e71297366de6",
+          "body": "{\n  \"message\": \"Data successfully updated\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Nama\",\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"birth_date\": \"2021-01-01\",\n    \"gender\": \"M\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "c7ef0b0f-3e35-43f6-80a6-1fd0b19c2add",
+          "body": "{\n  \"message\": \"validation error\",\n  \"errors\": {\n    \"key\": [\n      \"The {label} field is required.\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "9e87b6cd-aec1-4e06-8acf-9a7fd6a67ce7",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "a3038fe0-2152-42a9-8a34-311b79131166",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "b4b6b1aa-8750-4f12-8fe3-1d76591e6e76",
+      "documentation": "Edit Password",
+      "method": "put",
+      "endpoint": "users/edit_password",
+      "responses": [
+        {
+          "uuid": "271885ca-ff10-4a09-b9dd-74818b3c2d2a",
+          "body": "{\n  \"message\": \"Password successfully updated\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "4a78177f-2e2e-4d04-9254-828565fe9662",
+          "body": "{\n  \"message\": \"validation error\",\n  \"errors\": {\n    \"key\": [\n      \"The {label} field is required.\"\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "f7d84732-8110-4d0e-be34-9a5c09e5043e",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "010d1346-08ec-4455-a42b-2a33fabc22da",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "c4d3094b-7b79-46aa-9e6d-6dcf248c492b",
+      "documentation": "Get News",
+      "method": "get",
+      "endpoint": "news",
+      "responses": [
+        {
+          "uuid": "78956423-0aa3-4393-894e-15ad17264eea",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"Judul\",\n      \"image\": \"https://image.com\",\n      \"views\": 1,\n      \"created_at\": \"2021-01-01\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "a3b9fc58-cb79-46e0-a568-038c711a2b46",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "84771fd8-f3b6-4088-bdb1-6cab7e7e899d",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "6db4a0c9-45e1-4871-8a88-ba1b6ddeb1b9",
+      "documentation": "Get News Detail",
+      "method": "get",
+      "endpoint": "news/:id",
+      "responses": [
+        {
+          "uuid": "48042b98-7576-4c39-a5d7-d95937a51e1b",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"id\": 1,\n    \"title\": \"Judul\",\n    \"image\": \"https://image.com\",\n    \"views\": 1,\n    \"created_at\": \"2021-01-01\",\n    \"content\": \"Content\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "c9ca163b-db4d-43b3-81ba-b2ae60670943",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "c881d4a8-7e67-431c-b038-0dd88c793cb8",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "7004c329-61e4-425a-b8c6-02ba0a6d2d79",
+      "documentation": "Get Trees",
+      "method": "get",
+      "endpoint": "trees",
+      "responses": [
+        {
+          "uuid": "6b481978-f8bd-4ec3-ac1d-d35971d89bdb",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": [\n    {\n      \"id\": 1,\n      \"code\": \"A1\",\n      \"name\": \"Nama\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "2d838de8-afee-44d2-9ad1-bb4d1528f26e",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "38cd2ee5-4d09-40d9-b123-4dfa513df949",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "77bdf2e5-dbe8-4c23-ad22-1bbe9b45bad9",
+      "documentation": "Get Tree Detail",
+      "method": "get",
+      "endpoint": "trees/:id",
+      "responses": [
+        {
+          "uuid": "624a1019-3ce6-4ec2-a56c-705cd29104d6",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"id\": 1,\n    \"code\": \"A1\",\n    \"name\": \"Nama\",\n    \"description\": \"Deskripsi\",\n    \"location_name\": \"Lokasi\",\n    \"planting_date\": \"2021-01-01\",\n    \"location\": {\n      \"latitude\": \"-6.123456\",\n      \"longitude\": \"106.123456\"\n    },\n    \"image\": \"https://image.com\",\n    \"created_at\": \"2021-01-01\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "8a0fb01c-264e-4196-baf6-f7297b6563cb",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "4d1fd173-1a9e-405d-933e-5839515c5a33",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "9303542b-1edd-47c6-b718-46e87c70e1e8",
+      "documentation": "Adopt Tree",
+      "method": "post",
+      "endpoint": "transactions/adopt",
+      "responses": [
+        {
+          "uuid": "b0570c0b-bd68-4116-8f3b-99a01253d28e",
+          "body": "{\n  \"message\": \"\",\n  \"data\": {\n    \"transaction\": {\n      \"id\": \"\",\n      \"total\": {{faker 'datatype.number'}}\n    },\n    \"user\": {\n      \"id\": {{faker 'datatype.number'}},\n      \"name\": \"\",\n      \"email\": \"\",\n      \"phone\": \"\"\n    },\n    \"payment\": {\n      \"method_name\": \"\",\n      \"method_code\": \"\",\n      \"account_number\": \"\",\n      \"actions\": [\n        {\n          \"name\": \"\",\n          \"method\": \"\",\n          \"url\": \"\"\n        }\n      ]\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "5bed1ca7-dfd0-4031-936c-d624a28c2ad3",
+          "body": "{\n  \"message\": \"\",\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "2e54fdba-0048-4a74-9f38-c94593d65e25",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "655ba86c-7a4c-40e7-a4e1-c90a2ca364f5",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "84541c1c-2806-4cca-b50b-a9c5a76599d8",
+      "documentation": "Adopt Tree",
+      "method": "post",
+      "endpoint": "transactions/planting",
+      "responses": [
+        {
+          "uuid": "88c34d6d-02be-4a91-9577-745fb6bea385",
+          "body": "{\n  \"message\": \"\",\n  \"data\": {\n    \"transaction\": {\n      \"id\": \"\",\n      \"tree_id\": {{faker 'datatype.number'}},\n      \"qty\": {{faker 'datatype.number'}},\n      \"total\": {{faker 'datatype.number'}}\n    },\n    \"user\": {\n      \"id\": {{faker 'datatype.number'}},\n      \"name\": \"\",\n      \"email\": \"\",\n      \"phone\": \"\"\n    },\n    \"payment\": {\n      \"method_name\": \"\",\n      \"method_code\": \"\",\n      \"account_number\": \"\",\n      \"logo\": \"\",\n      \"actions\": [\n        {\n          \"name\": \"\",\n          \"method\": \"\",\n          \"url\": \"\"\n        }\n      ]\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "8bd6f967-b62e-4888-a446-9a5f539cbcf7",
+          "body": "{\n  \"message\": \"\",\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "86c205d3-a0bb-4965-adcc-92daf9f15af4",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "8ef2d703-9c29-4739-aca5-e850b3d4c4e1",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "7ac780a5-cbdb-4f4b-bf2b-a4c07dd62b41",
+      "documentation": "Get Transactions",
+      "method": "get",
+      "endpoint": "transactions",
+      "responses": [
+        {
+          "uuid": "fbb7031e-f7d0-497c-b814-6c9419a78dbe",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": [\n    {\n      \"id\": \"\",\n      \"type\": \"\",\n      \"code\": \"\",\n      \"detail\": \"\",\n      \"date\": \"\",\n      \"total\": {{faker 'datatype.number'}},\n      \"status\": \"\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "3f2a0840-35fc-4a72-947c-e3c0b33a3662",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "6f9ce19b-9e5b-4c69-9a61-78146a2d876a",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "73c5be12-da0e-42c4-b34a-1ae77c73d5c1",
+      "documentation": "Get Transaction Detail",
+      "method": "get",
+      "endpoint": "transactions/:id",
+      "responses": [
+        {
+          "uuid": "1915486c-14bc-4f12-87b6-2e4c52f73b6f",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"id\": \"\",\n    \"date\": \"\",\n    \"type\": \"\",\n    \"code\": \"\",\n    \"planting_date\": \"\",\n    \"trees\": [\n      {\n        \"id\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"code\": {{faker 'datatype.number'}}\n      }\n    ],\n    \"total\": {{faker 'datatype.number'}},\n    \"payment_method\": \"\",\n    \"status\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "1962d6bd-34d0-415d-9e60-523d17d23687",
+      "documentation": "Get Payment Methods",
+      "method": "get",
+      "endpoint": "transactions/payment_methods",
+      "responses": [
+        {
+          "uuid": "3db63ad7-650b-46ad-861f-d09f7395ad3b",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"ewallet\": [\n      {\n        \"name\": \"\",\n        \"code\": \"\",\n        \"logo\": \"\"\n      }\n    ],\n    \"va\": [\n      {\n        \"name\": \"\",\n        \"code\": \"\",\n        \"logo\": \"\"\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "14e060f6-6163-49ce-a2b6-647d3e4bdcd4",
+      "documentation": "Get Reedem Code",
+      "method": "get",
+      "endpoint": "transactions/redeem_code",
+      "responses": [
+        {
+          "uuid": "7df2b72f-5f40-4f4f-b55e-69813f014a3e",
+          "body": "{\n  \"message\": \"Data successfully retrieved\",\n  \"data\": {\n    \"code\": \"\",\n    \"value\": {{faker 'datatype.number'}},\n    \"type\": \"\",\n    \"trees\": [\n      {\n        \"id\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"code\": \"\",\n        \"location_name\": \"\"\n      }\n    ],\n    \"product\": {\n      \"id\": {{faker 'datatype.number'}},\n      \"name\": \"\",\n      \"location_name\": \"\",\n      \"tree\": {\n        \"name\": \"\",\n        \"code\": \"\"\n      },\n      \"planting_date\": \"\",\n      \"qty\": {{faker 'datatype.number'}}\n    }\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "9dcf6108-52c5-47d4-b319-ab2dcea04cdf",
+          "body": "{\n  \"message\": \"\",\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "e2de6f03-f6ec-477b-acb8-9bceb43f3399",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "fe2600a6-7b43-4f60-b0b4-1b4c1cd98ca4",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "56e4d4f4-c5e5-4888-b852-67266bb15431",
+      "documentation": "Using Vouchder",
+      "method": "post",
+      "endpoint": "transactions/redeem_code",
+      "responses": [
+        {
+          "uuid": "83771cc6-fcfc-4234-a215-48e1595b8bc3",
+          "body": "{\n  \"message\": \"Data successfully created\",\n  \"data\": {\n    \"id\": \"\",\n    \"date\": \"\",\n    \"type\": \"\",\n    \"code\": \"\",\n    \"planting_date\": \"\",\n    \"trees\": [\n      {\n        \"id\": {{faker 'datatype.number'}},\n        \"name\": \"\",\n        \"code\": {{faker 'datatype.number'}}\n      }\n    ],\n    \"total\": {{faker 'datatype.number'}},\n    \"payment_method\": \"\",\n    \"status\": \"\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "2608db9a-f9bc-4571-8ceb-0227d0cfed63",
+          "body": "{\n  \"message\": \"\",\n  \"error\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "86af3874-ab86-4711-81a9-1ca952535485",
+          "body": "{\n  \"message\": \"user unatuhtorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Unauthorized",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "2fd230da-ed3d-4eb1-941c-e43332ce460a",
+          "body": "{\n  \"message\": \"internal server error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

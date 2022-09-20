@@ -102,6 +102,7 @@
         "/auth/login": {
             "post": {
                 "description": "Login",
+                "tags": ["Auth"],
                 "parameters": [],
                 "requestBody": {
                     "content": {
@@ -186,6 +187,7 @@
         "/auth/register": {
             "post": {
                 "description": "Register",
+                "tags": ["Auth"],
                 "parameters": [],
                 "requestBody": {
                     "content": {
@@ -283,6 +285,7 @@
         "/carbon": {
             "get": {
                 "description": "Carbon Detail",
+                "tags": ["Carbon"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -367,6 +370,7 @@
         "/carbon/calculator": {
             "post": {
                 "description": "Send Calculator",
+                "tags": ["Carbon"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -457,6 +461,7 @@
         "/carbon/calculator/type": {
             "get": {
                 "description": "Get Type Calculator",
+                "tags": ["Carbon"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -548,6 +553,7 @@
         "/products/adopt": {
             "get": {
                 "description": "Adopt Product",
+                "tags": ["Products"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -631,6 +637,7 @@
         "/products/adopt/{id}": {
             "get": {
                 "description": "Adopt Product",
+                "tags": ["Products"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -709,6 +716,7 @@
         "/products/planting": {
             "get": {
                 "description": "Planting Product",
+                "tags": ["Products"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -792,6 +800,7 @@
         "/products/planting/{id}": {
             "get": {
                 "description": "Adopt Product",
+                "tags": ["Products"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -891,6 +900,7 @@
         "/users": {
             "get": {
                 "description": "Get User",
+                "tags": ["Users"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -960,6 +970,7 @@
             },
             "put": {
                 "description": "Update User",
+                "tags": ["Users"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1057,6 +1068,7 @@
         "/users/edit_password": {
             "put": {
                 "description": "Edit Password",
+                "tags": ["Users"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1117,6 +1129,7 @@
         "/news": {
             "get": {
                 "description": "Get News",
+                "tags": ["News Articles"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1211,6 +1224,7 @@
         "/news/{id}": {
             "get": {
                 "description": "Get News Detail",
+                "tags": ["News Articles"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1286,6 +1300,7 @@
         "/trees": {
             "get": {
                 "description": "Get Trees",
+                "tags": ["Trees"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1362,6 +1377,7 @@
         "/trees/{id}": {
             "get": {
                 "description": "Get Tree Detail",
+                "tags": ["Trees"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1414,6 +1430,10 @@
                                                     "type": "string",
                                                     "example": "Lokasi"
                                                 },
+                                                "planting_date": {
+                                                    "type": "string",
+                                                    "example": "2021-01-01"
+                                                },
                                                 "location": {
                                                     "type": "object",
                                                     "properties": {
@@ -1454,6 +1474,7 @@
         "/transactions/adopt": {
             "post": {
                 "description": "Adopt Tree",
+                "tags": ["Transaction"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1662,6 +1683,7 @@
         "/transactions/planting": {
             "post": {
                 "description": "Adopt Tree",
+                "tags": ["Transaction"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -1887,6 +1909,7 @@
         "/transactions": {
             "get": {
                 "description": "Get Transactions",
+                "tags": ["Transaction"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -2038,6 +2061,7 @@
         "/transactions/{id}": {
             "get": {
                 "description": "Get Transaction Detail",
+                "tags": ["Transaction"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -2169,6 +2193,7 @@
         "/transactions/payment_methods": {
             "get": {
                 "description": "Get Payment Methods",
+                "tags": ["Transaction"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -2282,6 +2307,7 @@
         "/transactions/redeem_code": {
             "get": {
                 "description": "Get Reedem Code",
+                "tags": ["Transaction"],
                 "security": [
                     {
                         "bearerAuth": []
@@ -2434,6 +2460,7 @@
             },
             "post": {
                 "description": "Using Vouchder",
+                "tags": ["Transaction"],
                 "security": [
                     {
                         "bearerAuth": []
