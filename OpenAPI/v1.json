@@ -184,6 +184,73 @@
                 }
             }
         },
+        "/auth/refresh_token": {
+            "get": {
+                "description": "Login",
+                "tags": ["Auth"],
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "access_token": {
+                                                    "type": "string"
+                                                },
+                                                "refresh_token": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        },
+                                                        "telp": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "refresh token success",
+                                    "data": {
+                                        "access_token": "5504f54a8bf1",
+                                        "refresh_token": "5504f54a8bf1",
+                                        "user": {
+                                            "id": 1,
+                                            "name": "John Doe",
+                                            "email": "john@gmail.com",
+                                            "telp": "628123456789"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/auth/register": {
             "post": {
                 "description": "Register",
