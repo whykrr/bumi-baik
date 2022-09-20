@@ -14,7 +14,7 @@ class CreateTrees extends Migration
     public function up()
     {
         Schema::create('trees', function (Blueprint $table) {
-            $table->bigInteger('id')->primary();
+            $table->bigInteger('id')->autoIncrement();
             $table->integer('type_id')->index('idx_type_id');
             $table->string('code')->unique('idx_code');
             $table->text('description');

@@ -14,7 +14,7 @@ class CreateUserCalculates extends Migration
     public function up()
     {
         Schema::create('user_calculates', function (Blueprint $table) {
-            $table->bigInteger('id')->primary();
+            $table->bigInteger('id')->autoIncrement();
             $table->bigInteger('user_id')->index('idx_user_id');
             $table->date("measurement_date");
             $table->text("measurement_data");

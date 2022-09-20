@@ -14,7 +14,7 @@ class CreateUserCarbonOffsets extends Migration
     public function up()
     {
         Schema::create('user_carbon_offsets', function (Blueprint $table) {
-            $table->bigInteger('id')->primary();
+            $table->bigInteger('id')->autoIncrement();
             $table->bigInteger('user_id')->index('idx_user_id');
             $table->string('transaction_id')->index('idx_transaction_id');
             $table->date("offset_date");
