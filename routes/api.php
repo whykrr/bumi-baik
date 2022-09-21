@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CarbonController;
 use App\Http\Controllers\API\TransactionController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\API\NewsController;
+use App\Http\Controllers\API\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,19 +80,15 @@ Route::middleware('auth.jwt')
  * PRODUCT ROUTES
  */
 Route::middleware('auth.jwt')
-    ->controller(CarbonController::class)
+    ->controller(ProductController::class)
     ->prefix('products')
     ->group(
         function () {
-            Route::get('/adopt', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
+            Route::get('/adopt', 'product_adopt');
             Route::get('/planting', function () {
                 return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
             });
-            Route::get('/adopt/{id}', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
+            Route::get('/adopt/{id}', 'adopt_detail');
             Route::get('/planting/{id}', function () {
                 return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
             });
