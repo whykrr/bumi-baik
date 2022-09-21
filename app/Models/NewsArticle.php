@@ -26,10 +26,10 @@ class NewsArticle extends Model
         'slug',
         'content',
         'image',
+        'views',
         'author',
+        'created_at'
     ];
-
-    protected $casts = [];
 
     public function setSlugAttribute($value)
     {

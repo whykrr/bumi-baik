@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CarbonController;
 use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,16 +102,12 @@ Route::middleware('auth.jwt')
  * NEWS ROUTES
  */
 Route::middleware('auth.jwt')
-    ->controller(CarbonController::class)
+    ->controller(NewsController::class)
     ->prefix('news')
     ->group(
         function () {
-            Route::get('/', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
-            Route::get('/{id}', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
+            Route::get('/', 'index');
+            Route::get('/{id}', 'detail');
         }
     );
 
