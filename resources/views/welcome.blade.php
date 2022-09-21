@@ -64,6 +64,10 @@
             <h1>COMING SOON</h1>
             <hr>
             <p id="demo">35 days</p>
+            {{-- // create button link --}}
+            <a href="{{ asset('asset/apk/bumibaik.apk') }}"
+                style="text-decoration: none; padding: 20px; background-color: white; border-radius: 10px; color: black; font-weight: bold">Download
+                Apps</a>
         </div>
         {{-- <div class="bottomleft">
             <p>Some text</p>
