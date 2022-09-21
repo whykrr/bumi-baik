@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\ResponseMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
@@ -70,6 +71,63 @@ Route::middleware('auth.jwt')
             Route::get('/calculator/type', 'get_item_calculator');
             Route::post('/calculator', 'count_carbon_offset');
             Route::get('/', 'carbon_detail');
+        }
+    );
+
+/**
+ * PRODUCT ROUTES
+ */
+Route::middleware('auth.jwt')
+    ->controller(CarbonController::class)
+    ->prefix('products')
+    ->group(
+        function () {
+            Route::get('/adopt', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
+            Route::get('/planting', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
+            Route::get('/adopt/{id}', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
+            Route::get('/planting/{id}', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
+        }
+    );
+
+/**
+ * NEWS ROUTES
+ */
+Route::middleware('auth.jwt')
+    ->controller(CarbonController::class)
+    ->prefix('news')
+    ->group(
+        function () {
+            Route::get('/', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
+            Route::get('/{id}', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
+        }
+    );
+
+/**
+ * TREE ROUTES
+ */
+Route::middleware('auth.jwt')
+    ->controller(CarbonController::class)
+    ->prefix('trees')
+    ->group(
+        function () {
+            Route::get('/', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
+            Route::get('/{id}', function () {
+                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
+            });
         }
     );
 
