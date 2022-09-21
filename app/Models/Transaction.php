@@ -70,9 +70,8 @@ class Transaction extends Model
         return $this->belongsTo(Planting::class);
     }
 
-    public function setIdAttribute($value)
-    {
-        $uuid = Uuid::uuid4();
-        $this->attributes['id'] = $uuid->toString();
-    }
+    // public function setIdAttribute($value)
+    // {
+
+    // }
 }
