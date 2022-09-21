@@ -133,7 +133,7 @@ class CarbonController extends Controller
                     'user_id' => @$carbon->user_id,
                     'emision' => @$carbon->result,
                     'offset' => $offset->total,
-                    'last_calculate' => $carbon->measurement_date,
+                    'last_calculate' => @$carbon->measurement_date,
                 ],
                 'trees' => $newTrees,
             ]
