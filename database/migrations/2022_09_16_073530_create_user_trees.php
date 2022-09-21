@@ -19,6 +19,7 @@ class CreateUserTrees extends Migration
             $table->bigInteger('tree_id')->index('idx_tree_id');
             $table->string('transaction_id')->index('idx_transaction_id');
             $table->date("date_adopted")->index('idx_date_adopted');
+            $table->float('user_tree_sequestration')->nullable();
             $table->timestamps();
         });
     }

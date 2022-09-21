@@ -18,12 +18,12 @@ class CreateVouchers extends Migration
             $table->string('code')->index('idx_code');
             $table->string('type')->index('idx_type');
             $table->bigInteger('tree_id')->index('idx_tree_id');
-            $table->integer('planting_id')->index('idx_planting_id');
-            $table->integer('get_tree_id');
-            $table->text('description');
-            $table->text('terms');
-            $table->float('value');
-            $table->integer('quantity');
+            $table->integer('planting_id')->index('idx_planting_id')->nullable();
+            $table->text('description')->nullable();
+            $table->text('terms')->nullable();
+            $table->integer('value');
+            $table->integer('qty_tree')->nullable();
+            $table->integer('quota');
             $table->timestamps();
         });
     }

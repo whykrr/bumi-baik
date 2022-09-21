@@ -15,6 +15,7 @@ class CreateTreeTypes extends Migration
     {
         Schema::create('tree_types', function (Blueprint $table) {
             $table->id();
+            $table->integer('partner_id')->index();
             $table->string('name');
             $table->text('description');
             $table->float('sequestration');

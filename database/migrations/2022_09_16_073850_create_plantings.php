@@ -20,6 +20,7 @@ class CreatePlantings extends Migration
             $table->integer('tree_type_id')->index('idx_tree_type_id');
             $table->text('description');
             $table->date('planting_date');
+            $table->text('image');
             $table->timestamps();
         });
     }

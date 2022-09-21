@@ -17,12 +17,12 @@ class CreateTrees extends Migration
             $table->bigInteger('id')->autoIncrement();
             $table->integer('type_id')->index('idx_type_id');
             $table->string('code')->unique('idx_code');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->date("planting_date");
             $table->text('image')->nullable();
             // Location coordinate
-            $table->float('latitude');
-            $table->float('longitude');
+            $table->string('latitude', 20)->nullable();
+            $table->string('longitude', 20)->nullable();
             $table->timestamps();
         });
     }

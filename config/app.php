@@ -175,9 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SwaggerUiServiceProvider::class,
-
-        // JWT Auth
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ],
 
     /*
