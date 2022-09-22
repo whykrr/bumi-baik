@@ -27,6 +27,6 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
       run: |
-        mysql -u root -e 'create database inti-bumi;'
+        mysql -e 'create database inti-bumi;'
     - name: Migrate Database
       run: php artisan migrate
