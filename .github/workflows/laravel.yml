@@ -1,5 +1,6 @@
 name: Laravel
 
+
 on:
   push:
     branches: [ "master" ]
@@ -7,8 +8,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  laravel-tests:
-
+  laravel:
     runs-on: ubuntu-20.04
 
     steps:
