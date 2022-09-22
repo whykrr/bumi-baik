@@ -27,5 +27,5 @@ jobs:
     # - name: Create Database
     #   run: |
     #     mysql -u root -e 'create database inti-bumi;'
-    # - name: Migrate Database
-    #   run: php artisan migrate
+    - name: Migrate Database
+      run: php artisan migrate
