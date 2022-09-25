@@ -86,13 +86,9 @@ Route::middleware('auth.jwt')
     ->group(
         function () {
             Route::get('/adopt', 'product_adopt');
-            Route::get('/planting', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
+            Route::get('/planting', 'product_planting');
             Route::get('/adopt/{id}', 'adopt_detail');
-            Route::get('/planting/{id}', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
+            Route::get('/planting/{id}', 'planting_detail');
         }
     );
 

@@ -6,6 +6,7 @@ use App\Models\TreeType;
 use Illuminate\Http\Request;
 use App\Constants\ResponseMessage;
 use App\Http\Controllers\Controller;
+use App\Models\Planting;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -21,18 +22,44 @@ class ProductController extends Controller
             ->groupBy('tree_types.id')
             ->get();
 
-        $json_data = [];
+        $data = [];
 
         foreach ($product as $key => $value) {
-            $json_data[$key]['id'] = $value->id;
-            $json_data[$key]['name'] = $value->name;
-            $json_data[$key]['location'] = $value->partner->name;
-            $json_data[$key]['images'] = explode(',', $value->image);
+            foreach ($product as $key => $value) {
+                $data[$key]['id'] = $value->id;
+                $data[$key]['name'] = $value->name;
+                $data[$key]['location'] = $value->partner->name;
+                $data[$key]['images'] = explode(',', $value->image);
+            }
         }
 
         return response()->json([
             'message' => ResponseMessage::SUCCESS_RETRIEVE,
-            'data' => $json_data,
+            'data' => $data,
+        ]);
+    }
+
+    /**
+     * Get Product Planting
+     * 
+     */
+    public function product_planting()
+    {
+        $tenDaysLater = date('Y-m-d', strtotime('+10 days'));
+        $product = Planting::where('planting_date', '>=', $tenDaysLater)->get();
+
+        $data = [];
+
+        foreach ($product as $key => $value) {
+            $data[$key]['id'] = $value->id;
+            $data[$key]['name'] = $value->name . ' di ' . $value->partner->name;
+            $data[$key]['date_planting'] = date('Y-m-d', strtotime($value->planting_date));
+            $data[$key]['images'] = explode(',', $value->image);
+        }
+
+        return response()->json([
+            'message' => ResponseMessage::SUCCESS_RETRIEVE,
+            'data' => $data,
         ]);
     }
 
@@ -60,6 +87,35 @@ class ProductController extends Controller
         return response()->json([
             'message' => ResponseMessage::SUCCESS_RETRIEVE,
             'data' => $json_data,
+        ]);
+    }
+
+    /**
+     * Get Product Planting Detail
+     *
+     */
+
+    public function planting_detail($id)
+    {
+        $product = Planting::findOrfail($id);
+
+        $data = [
+            'id' => $product->id,
+            'name' => $product->name . ' di ' . $product->partner->name,
+            'detail' => $product->description,
+            'tree' => [
+                'name' => $product->tree_type->name,
+                'detail' => $product->tree_type->description,
+            ],
+            'location' => $product->partner->name,
+            'images' => explode(',', $product->image),
+            'price' => 200000,
+            'date_planting' => date('Y-m-d', strtotime($product->planting_date)),
+        ];
+
+        return response()->json([
+            'message' => ResponseMessage::SUCCESS_RETRIEVE,
+            'data' => $data,
         ]);
     }
 }
