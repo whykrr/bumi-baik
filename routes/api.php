@@ -8,6 +8,7 @@ use App\Http\Controllers\API\CarbonController;
 use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\TreeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,16 +113,12 @@ Route::middleware('auth.jwt')
  * TREE ROUTES
  */
 Route::middleware('auth.jwt')
-    ->controller(CarbonController::class)
+    ->controller(TreeController::class)
     ->prefix('trees')
     ->group(
         function () {
-            Route::get('/', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
-            Route::get('/{id}', function () {
-                return response()->json(['message' => ResponseMessage::SUCCESS_RETRIEVE, 'data' => []]);
-            });
+            Route::get('/', 'get_tree_user');
+            Route::get('/{id}', 'get_detail_tree');
         }
     );
 

@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/haloo', function () {
+    $c = 3 > 7;
+    print_r($c);
+    echo "haloo";
+});

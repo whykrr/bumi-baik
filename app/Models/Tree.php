@@ -21,6 +21,8 @@ class Tree extends Model
         'longitude',
     ];
 
+    protected $with = ['type'];
+
     protected $visible = [
         'id',
         'type_id',
@@ -31,4 +33,15 @@ class Tree extends Model
         'latitude',
         'longitude',
     ];
+
+    // cast 
+    protected $casts = [
+        'planting_date' => 'date:Y-m-d',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    public function type()
+    {
+        return $this->belongsTo(TreeType::class, 'type_id');
+    }
 }
