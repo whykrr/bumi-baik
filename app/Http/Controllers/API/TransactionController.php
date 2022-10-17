@@ -12,10 +12,63 @@ use App\Models\UserCarbonOffset;
 use App\Constants\ResponseMessage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GetTransactionRequest;
 use App\Http\Requests\UseVoucherRequest;
 
 class TransactionController extends Controller
 {
+    /**
+     * Get Transaction list
+     */
+    public function index(GetTransactionRequest $request)
+    {
+        $user = auth('api')->user()->id;
+        $page = $request->input('page', 1);
+        $limit = $request->input('limit', 10);
+
+        $transactions = Transaction::with(['tree_type', 'planting'])->where('user_id', $user)
+            ->orderBy('created_at', 'desc')
+            ->paginate($limit, ['*'], 'page', $page)->map(
+                function ($transaction) {
+                    // check type if planting_id is null
+                    if ($transaction->planting_id == null) {
+                        $transaction->type = 'adopt';
+                    } else {
+                        $transaction->type = 'planting';
+                    }
+
+                    // check detail 
+                    if ($transaction->type == 'adopt') {
+                        $detail = $transaction->tree_type->name;
+                    } else {
+                        $detail = $transaction->planting->name;
+                    }
+
+                    // show only id, type, code, detail, date, total, status
+                    return [
+                        'id' => $transaction->id,
+                        'type' => $transaction->type,
+                        'code' => $transaction->order_code,
+                        'detail' => $detail,
+                        'date' => $transaction->date,
+                        'total' => $transaction->total,
+                        'status' => $transaction->status,
+                    ];
+                }
+            );
+
+        return response()->json([
+            'message' => ResponseMessage::SUCCESS_RETRIEVE,
+            'data' => $transactions,
+            // 'meta' => [
+            //     'page' => $transactions->currentPage(),
+            //     'limit' => (int) $transactions->perPage(),
+            //     'total' => $transactions->total(),
+            //     'total_page' => $transactions->lastPage(),
+            // ]
+        ]);
+    }
+
     /**
      * Get Voucher By Code
      */

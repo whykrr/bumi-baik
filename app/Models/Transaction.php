@@ -11,6 +11,8 @@ class Transaction extends Model
     use HasFactory;
 
     protected $table = "transactions";
+    protected $primaryKey = "id";
+    protected $keyType = "string";
 
     protected $fillable = [
         'id',
@@ -62,7 +64,7 @@ class Transaction extends Model
 
     public function tree_type()
     {
-        return $this->belongsTo(TreeType::class);
+        return $this->belongsTo(TreeType::class, 'tree_type_id');
     }
 
     public function planting()

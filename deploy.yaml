@@ -1,0 +1,20 @@
+import: 
+  - recipe/laravel.php
+
+config:
+  repository: 'https://github.com/whykrr/bumi-baik.git'
+
+hosts:
+  ec2-18-141-177-117.ap-southeast-1.compute.amazonaws.com:
+    remote_user: ubuntu
+    deploy_path: '~/bumi-baik'
+    # get the private key from the github secrets
+    ssh_options: '-i ~/.ssh/id_rsa'
+
+tasks:
+  build:
+    - cd: '{{release_path}}'
+    - run: 'npm run build'  
+
+after:
+  deploy:failed: deploy:unlock

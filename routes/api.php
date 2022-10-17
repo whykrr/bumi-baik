@@ -39,8 +39,8 @@ Route::controller(UserController::class)
             Route::post('/register', 'register');
         }
     );
-Route::middleware('auth.jwt')
-    ->controller(UserController::class)
+Route::controller(UserController::class)
+    ->middleware('auth.jwt')
     ->prefix('auth')
     ->group(
         function () {
@@ -52,8 +52,8 @@ Route::middleware('auth.jwt')
 /**
  * USER ROUTES
  */
-Route::middleware('auth.jwt')
-    ->controller(UserController::class)
+Route::controller(UserController::class)
+    ->middleware('auth.jwt')
     ->prefix('users')
     ->group(
         function () {
@@ -66,8 +66,8 @@ Route::middleware('auth.jwt')
 /**
  * CARBON ROUTES
  */
-Route::middleware('auth.jwt')
-    ->controller(CarbonController::class)
+Route::controller(CarbonController::class)
+    ->middleware('auth.jwt')
     ->prefix('carbon')
     ->group(
         function () {
@@ -80,8 +80,8 @@ Route::middleware('auth.jwt')
 /**
  * PRODUCT ROUTES
  */
-Route::middleware('auth.jwt')
-    ->controller(ProductController::class)
+Route::controller(ProductController::class)
+    ->middleware('auth.jwt')
     ->prefix('products')
     ->group(
         function () {
@@ -95,8 +95,8 @@ Route::middleware('auth.jwt')
 /**
  * NEWS ROUTES
  */
-Route::middleware('auth.jwt')
-    ->controller(NewsController::class)
+Route::controller(NewsController::class)
+    ->middleware('auth.jwt')
     ->prefix('news')
     ->group(
         function () {
@@ -108,8 +108,8 @@ Route::middleware('auth.jwt')
 /**
  * TREE ROUTES
  */
-Route::middleware('auth.jwt')
-    ->controller(TreeController::class)
+Route::controller(TreeController::class)
+    ->middleware('auth.jwt')
     ->prefix('trees')
     ->group(
         function () {
@@ -126,6 +126,13 @@ Route::middleware('auth.jwt')
     ->prefix('transactions')
     ->group(
         function () {
+            // Transaction
+            Route::get('/', 'index');
+            Route::get('/{id}', 'get_detail');
+            Route::get('/payment_methods', 'get_payment_method');
+            Route::post('/adopt', 'store_adopt');
+            Route::post('/planting', 'store_planting');
+
             // Reedem Code
             Route::get('/redeem_code/{code}', 'redeem_code');
             Route::post('/redeem_code', 'use_voucher');
