@@ -4,7 +4,16 @@
         "title": "API Bumi Baik",
         "version": "1.0"
     },
-    "servers": [{ "url": "https://bumi-baik.test/api" }],
+    "servers": [
+        {
+            "url": "http://bumi-baik.test/api",
+            "description": "Development server"
+        },
+        {
+            "url": "https://bumibaik.com/api",
+            "description": "Production server"
+        }
+    ],
     "components": {
         "securitySchemes": {
             "bearerAuth": {
