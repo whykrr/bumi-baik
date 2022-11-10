@@ -61,10 +61,10 @@
             <img src="{{ asset('asset/white-logo.png') }}" alt="Bumi Baik" style="padding-top: 20px" width="100px">
         </div>
         <div class="middle">
+            <h2>Bumi Baik Apps</h2>
             {{-- // create button link --}}
             <a href="{{ asset('asset/apk/bumibaik.apk') }}"
-                style="text-decoration: none; padding: 20px; background-color: white; border-radius: 10px; color: black; font-weight: bold">Download
-                App</a>
+                style="text-decoration: none; padding: 20px; background-color: white; border-radius: 10px; color: black; font-weight: bold">Download</a>
         </div>
         {{-- <div class="bottomleft">
             <p>Some text</p>
