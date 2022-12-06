@@ -29,4 +29,19 @@ class UserCarbonOffset extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function record($transaction)
+    {
+        $basic_price = 200000;
+        $basic_offset = 1000;
+
+        $data = [
+            'user_id' => $transaction['user_id'],
+            'transaction_id' => $transaction['id'],
+            'offset_date' => $transaction['date'],
+            'total_offset' => ($transaction['total'] / $basic_price) * $basic_offset
+        ];
+
+        return self::create($data);
+    }
 }

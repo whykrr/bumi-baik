@@ -71,9 +71,4 @@ class Transaction extends Model
     {
         return $this->belongsTo(Planting::class);
     }
-
-    // public function setIdAttribute($value)
-    // {
-
-    // }
 }

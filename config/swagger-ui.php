@@ -40,7 +40,7 @@ return [
     |
     */
 
-    'file' => resource_path('../OpenAPI/v1.json'),
+    'file' => resource_path('OpenAPI/v1.json'),
 
     /*
     |--------------------------------------------------------------------------

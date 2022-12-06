@@ -10,16 +10,47 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\UserCarbonOffset;
 use App\Constants\ResponseMessage;
+use App\Http\Controllers\api\APIBaseController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\GetTransactionRequest;
+use App\Http\Requests\TransactionAdoptRequest;
 use App\Http\Requests\UseVoucherRequest;
+use Midtrans\Config as MidtransConfig;
 
-class TransactionController extends Controller
+class TransactionController extends APIBaseController
 {
-    /**
-     * Get Transaction list
-     */
+    private function get_token_snap($param)
+    {
+        MidtransConfig::$serverKey = env("MIDTRANS_SERVER_KEY");
+        MidtransConfig::$is3ds = true;
+        MidtransConfig::$isSanitized = true;
+        if (env("APP_ENV") == 'production') {
+            MidtransConfig::$isProduction == true;
+        }
+
+        return \Midtrans\Snap::getSnapToken($param);
+    }
+
+    private function genrate_order_code($type)
+    {
+        $user_id = auth('api')->user()->id;
+
+        $code = "";
+
+        switch ($type) {
+            case 'adopt':
+                $code .= "ADOPT";
+                break;
+            case 'planting':
+                $code .= "PLANT";
+                break;
+            default:
+                $code .= "ADOPT";
+        }
+
+        return $code .= "-" . date('YmdHis') . '-' . $user_id . '-' . rand(1000, 9999);
+    }
+
     public function index(GetTransactionRequest $request)
     {
         $user = auth('api')->user()->id;
@@ -67,6 +98,45 @@ class TransactionController extends Controller
             //     'total_page' => $transactions->lastPage(),
             // ]
         ]);
+    }
+
+    public function create_adopt(TransactionAdoptRequest $request)
+    {
+        $basic_price = 200000;
+        $basic_offset = 1000;
+        $transaction_id = Uuid::uuid4()->toString();
+
+        $transaction = [
+            'id' => $transaction_id,
+            'order_code' => $this->genrate_order_code('adopt'),
+            'user_id' => $this->user->id,
+            'date' => date('Y-m-d'),
+            'tree_type_id' => $request->product_id,
+            'total' => $request->total,
+            'status' => 'request'
+        ];
+
+        $data_offset = [
+            'user_id' => $this->user->id,
+            'transaction_id' => $transaction['id'],
+            'offset_date' => $transaction['date'],
+            'total_offset' => ($transaction['total'] / $basic_price) * $basic_offset
+        ];
+
+        $param_midtrans = [
+            'transaction_details' => array(
+                'order_id' => $transaction_id,
+                'gross_amount' => $request->total,
+            ),
+            'customer_details' => array(
+                'first_name' => $this->user->name,
+                'last_name' => '',
+                'email' => $this->user->email,
+                'phone' => $this->user->phone,
+            ),
+        ];
+
+        $token = $this->get_token_snap($param_midtrans);
     }
 
     /**
@@ -122,13 +192,17 @@ class TransactionController extends Controller
             'value' => $voucher->value,
         ];
 
-        return $this->_doTransactions($tr, $v);
+        $this->_doTransactions($tr, $v);
+
+        return response()->json([
+            "message" => ResponseMessage::SUCCESS_CREATE,
+        ]);
     }
 
     private function _doTransactions($request, $voucher = [], $payment = [])
     {
-        $basic_price = 15000;
-        $basic_offset = 100;
+        $basic_price = 200000;
+        $basic_offset = 1000;
         $user_id = auth('api')->user()->id;
 
         $uuid = Uuid::uuid4();
@@ -204,7 +278,7 @@ class TransactionController extends Controller
         }
 
         if ($request->type == 'adopt') {
-            $ut = $this->_findTree($data_offset['total_offset']);
+            $ut = $this->_find_tree($data_offset['total_offset']);
 
             $userTrees = [];
 
@@ -232,35 +306,11 @@ class TransactionController extends Controller
 
         DB::commit();
 
-        return response()->json([
-            "message" => ResponseMessage::SUCCESS_CREATE,
-        ]);
+        return $data;
     }
 
-    private function _findTree($offset)
+    private function _find_tree($offset)
     {
-        $userTrees = [];
-
-        $tenYearAgo = date('Y-m-d', strtotime('-10 year'));
-
-        $getTree = Tree::select(['trees.*', 'tree_types.name AS tree_type_name', 'tree_types.sequestration', DB::raw('COUNT(user_trees.user_tree_sequestration) as user_sequastration'), DB::raw('IF( ISNULL(SUM( user_trees.user_tree_sequestration )),tree_types.sequestration,tree_types.sequestration - SUM( user_trees.user_tree_sequestration )) as remaining_sequastration')])
-            ->join('tree_types', 'tree_types.id', '=', 'trees.type_id')
-            ->join('user_trees', 'user_trees.id', '=', 'trees.id', 'left')
-            ->where('trees.planting_date', '<=', $tenYearAgo)
-            ->groupBy('trees.id')
-            ->orderBy('trees.id', 'ASC')
-            ->having('remaining_sequastration', '>=', $offset)
-            ->limit(1)
-            ->get();
-
-        foreach ($getTree as $tree) {
-            $userTrees[] = [
-                'tree_id' => $tree->id,
-                'code' => $tree->code,
-                'user_tree_sequestration' => $offset,
-            ];
-        }
-
-        return $userTrees;
+        return Tree::findTree($offset);
     }
 }

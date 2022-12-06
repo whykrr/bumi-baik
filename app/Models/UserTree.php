@@ -39,4 +39,22 @@ class UserTree extends Model
     {
         return $this->belongsTo(Tree::class);
     }
+
+    public static function adopt($user_offset)
+    {
+        $find_tree = Tree::findTree($user_offset['total_offset']);
+        $userTrees = [];
+
+        foreach ($find_tree as $ft) {
+            $userTrees = [
+                'user_id' => $user_offset['user_id'],
+                'tree_id' => $ft['tree_id'],
+                'transaction_id' => $user_offset['transaction_id'],
+                'date_adopted' => $user_offset['offset_date'],
+                'user_tree_sequestration' => $ft['user_tree_sequestration'],
+            ];
+        }
+
+        return UserTree::create($userTrees);
+    }
 }

@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -18,7 +21,8 @@
         "nextapps/laravel-swagger-ui": "^0.6.0",
         "propaganistas/laravel-phone": "^4.3",
         "ramsey/uuid": "^4.2",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "yaza/laravel-repository-service": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

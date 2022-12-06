@@ -762,10 +762,6 @@
                                                     "type": "string",
                                                     "example": "Lokasi"
                                                 },
-                                                "quota": {
-                                                    "type": "integer",
-                                                    "example": 100
-                                                },
                                                 "images": {
                                                     "type": "array",
                                                     "items": {
@@ -1562,28 +1558,21 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "detail": {
-                                        "type": "object",
-                                        "properties": {
-                                            "product_id": {
-                                                "type": "integer"
-                                            },
-                                            "total": {
-                                                "type": "integer"
-                                            }
-                                        }
+                                    "product_id": {
+                                        "type": "integer"
                                     },
-                                    "payment_method": {
+                                    "product_name": {
                                         "type": "string"
+                                    },
+                                    "total": {
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
-                                "detail": {
-                                    "product_id": 1,
-                                    "total": 15000
-                                },
-                                "payment_method": "va_bca"
+                                "product_id": 1,
+                                "product_name": "Nama Product",
+                                "total": 15000
                             }
                         }
                     }
@@ -1602,6 +1591,12 @@
                                         "data": {
                                             "type": "object",
                                             "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "redirect_url": {
+                                                    "type": "string"
+                                                },
                                                 "transaction": {
                                                     "type": "object",
                                                     "properties": {
@@ -1629,115 +1624,27 @@
                                                             "type": "string"
                                                         }
                                                     }
-                                                },
-                                                "payment": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "method_name": {
-                                                            "type": "string"
-                                                        },
-                                                        "method_code": {
-                                                            "type": "string"
-                                                        },
-                                                        "account_number": {
-                                                            "type": "string"
-                                                        },
-                                                        "actions": {
-                                                            "type": "array",
-                                                            "items": {
-                                                                "type": "object",
-                                                                "properties": {
-                                                                    "name": {
-                                                                        "type": "string"
-                                                                    },
-                                                                    "method": {
-                                                                        "type": "string"
-                                                                    },
-                                                                    "url": {
-                                                                        "type": "string"
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 },
-                                "examples": {
-                                    "E Wallet": {
-                                        "value": {
-                                            "message": "Transaction successfully created",
-                                            "data": {
-                                                "transaction": {
-                                                    "id": "123456789",
-                                                    "tree_id": 1,
-                                                    "qty": 2,
-                                                    "total": 100000
-                                                },
-                                                "user": {
-                                                    "id": 1,
-                                                    "name": "Nama",
-                                                    "email": "example@mail.com",
-                                                    "phone": "628123456789"
-                                                },
-                                                "payment": {
-                                                    "method_name": "GOPAY",
-                                                    "method_code": "gopay",
-                                                    "account_number": "123456789",
-                                                    "logo": "https://midtrans.com/assets/img/payment/gopay.png",
-                                                    "actions": [
-                                                        [
-                                                            {
-                                                                "name": "generate-qr-code",
-                                                                "method": "GET",
-                                                                "url": "https://api.sandbox.midtrans.com/v2/gopay/53987c10-d5c2-4a1a-bb0a-6417d9367217/qr-code"
-                                                            },
-                                                            {
-                                                                "name": "deeplink-redirect",
-                                                                "method": "GET",
-                                                                "url": "https://simulator.sandbox.midtrans.com/gopay/partner/app/payment-pin?id=9084bc1b-640c-4625-85cb-ae921d9bbd6e"
-                                                            },
-                                                            {
-                                                                "name": "get-status",
-                                                                "method": "GET",
-                                                                "url": "https://api.sandbox.midtrans.com/v2/53987c10-d5c2-4a1a-bb0a-6417d9367217/status"
-                                                            },
-                                                            {
-                                                                "name": "cancel",
-                                                                "method": "POST",
-                                                                "url": "https://api.sandbox.midtrans.com/v2/53987c10-d5c2-4a1a-bb0a-6417d9367217/cancel"
-                                                            }
-                                                        ]
-                                                    ]
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "Virtual Account": {
-                                        "value": {
-                                            "message": "Transaction successfully created",
-                                            "data": {
-                                                "transaction": {
-                                                    "id": "123456789",
-                                                    "tree_id": 1,
-                                                    "qty": 2,
-                                                    "total": 100000
-                                                },
-                                                "user": {
-                                                    "id": 1,
-                                                    "name": "Nama",
-                                                    "email": "example@mail.com",
-                                                    "phone": "628123456789"
-                                                },
-                                                "payment": {
-                                                    "method_name": "GOPAY",
-                                                    "method_code": "gopay",
-                                                    "account_number": "123456789",
-                                                    "logo": "https://midtrans.com/assets/img/payment/gopay.png"
-                                                }
-                                            }
+                                "example": {
+                                    "message": "Transaction successfully created",
+                                    "data": {
+                                        "token": "66e4fa55-fdac-4ef9-91b5-733b97d1b862",
+                                        "redirect_url": "https://app.sandbox.midtrans.com/snap/v2/vtweb/66e4fa55-fdac-4ef9-91b5-733b97d1b862",
+                                        "transaction": {
+                                            "id": "123456789",
+                                            "tree_id": 1,
+                                            "qty": 2,
+                                            "total": 100000
+                                        },
+                                        "user": {
+                                            "id": 1,
+                                            "name": "Nama",
+                                            "email": "example@mail.com",
+                                            "phone": "628123456789"
                                         }
                                     }
                                 }
@@ -1771,36 +1678,25 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "detail": {
-                                        "type": "object",
-                                        "properties": {
-                                            "product_id": {
-                                                "type": "integer"
-                                            },
-                                            "tree_id": {
-                                                "type": "integer"
-                                            },
-                                            "qty": {
-                                                "type": "integer"
-                                            },
-                                            "total": {
-                                                "type": "integer"
-                                            }
-                                        }
+                                    "product_id": {
+                                        "type": "integer"
                                     },
-                                    "payment_method": {
+                                    "product_name": {
                                         "type": "string"
+                                    },
+                                    "qty": {
+                                        "type": "integer"
+                                    },
+                                    "total": {
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
-                                "detail": {
-                                    "product_id": 1,
-                                    "tree_id": 1,
-                                    "qty": 2,
-                                    "total": 15000
-                                },
-                                "payment_method": "va_bca"
+                                "product_id": 1,
+                                "product_name": "Pohon 1",
+                                "qty": 2,
+                                "total": 15000
                             }
                         }
                     }
